@@ -32,7 +32,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.TCantidadR = new System.Windows.Forms.TextBox();
-            this.Instantanea = new System.Windows.Forms.Button();
             this.Asignados = new System.Windows.Forms.DataGridView();
             this.label3 = new System.Windows.Forms.Label();
             this.Disponibles = new System.Windows.Forms.DataGridView();
@@ -58,17 +57,18 @@
             // 
             // TCantidadP
             // 
-            this.TCantidadP.Location = new System.Drawing.Point(187, 28);
+            this.TCantidadP.Location = new System.Drawing.Point(187, 45);
             this.TCantidadP.MaxLength = 2;
             this.TCantidadP.Name = "TCantidadP";
             this.TCantidadP.Size = new System.Drawing.Size(100, 20);
             this.TCantidadP.TabIndex = 0;
+            this.TCantidadP.TextChanged += new System.EventHandler(this.Cantidades_TextChanged);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.label1.Location = new System.Drawing.Point(52, 28);
+            this.label1.Location = new System.Drawing.Point(52, 52);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(110, 13);
             this.label1.TabIndex = 1;
@@ -78,7 +78,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.label2.Location = new System.Drawing.Point(500, 28);
+            this.label2.Location = new System.Drawing.Point(500, 52);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(107, 13);
             this.label2.TabIndex = 2;
@@ -86,23 +86,12 @@
             // 
             // TCantidadR
             // 
-            this.TCantidadR.Location = new System.Drawing.Point(630, 28);
+            this.TCantidadR.Location = new System.Drawing.Point(630, 45);
             this.TCantidadR.MaxLength = 2;
             this.TCantidadR.Name = "TCantidadR";
             this.TCantidadR.Size = new System.Drawing.Size(100, 20);
             this.TCantidadR.TabIndex = 3;
-            // 
-            // Instantanea
-            // 
-            this.Instantanea.BackColor = System.Drawing.Color.MidnightBlue;
-            this.Instantanea.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.Instantanea.Location = new System.Drawing.Point(328, 71);
-            this.Instantanea.Name = "Instantanea";
-            this.Instantanea.Size = new System.Drawing.Size(134, 23);
-            this.Instantanea.TabIndex = 4;
-            this.Instantanea.Text = "Establecer instantanea";
-            this.Instantanea.UseVisualStyleBackColor = false;
-            this.Instantanea.Click += new System.EventHandler(this.Instantanea_Click);
+            this.TCantidadR.TextChanged += new System.EventHandler(this.Cantidades_TextChanged);
             // 
             // Asignados
             // 
@@ -116,6 +105,7 @@
             this.Asignados.RowHeadersWidth = 50;
             this.Asignados.Size = new System.Drawing.Size(200, 175);
             this.Asignados.TabIndex = 5;
+            this.Asignados.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.ValMA_CellValueChanged);
             // 
             // label3
             // 
@@ -200,6 +190,7 @@
             this.Maximos.RowHeadersWidth = 50;
             this.Maximos.Size = new System.Drawing.Size(200, 175);
             this.Maximos.TabIndex = 8;
+            this.Maximos.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.ValMA_CellValueChanged);
             // 
             // label6
             // 
@@ -249,7 +240,7 @@
             this.Ejercicio1.BackColor = System.Drawing.Color.MidnightBlue;
             this.Ejercicio1.ForeColor = System.Drawing.SystemColors.ControlDark;
             this.Ejercicio1.Name = "Ejercicio1";
-            this.Ejercicio1.Size = new System.Drawing.Size(152, 22);
+            this.Ejercicio1.Size = new System.Drawing.Size(127, 22);
             this.Ejercicio1.Text = "Ejercicio 1";
             this.Ejercicio1.Click += new System.EventHandler(this.Ejercicio1_Click);
             // 
@@ -289,7 +280,6 @@
             this.Controls.Add(this.Maximos);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.Asignados);
-            this.Controls.Add(this.Instantanea);
             this.Controls.Add(this.TCantidadR);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -315,7 +305,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox TCantidadR;
-        private System.Windows.Forms.Button Instantanea;
         private System.Windows.Forms.DataGridView Asignados;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.DataGridView Disponibles;

@@ -8,3 +8,13 @@ c:\users\gerardoaugusto\documents\visual studio 2015\Projects\Banquero\Banquero\
 c:\users\gerardoaugusto\documents\visual studio 2015\Projects\Banquero\Banquero\obj\Debug\Banquero.exe
 c:\users\gerardoaugusto\documents\visual studio 2015\Projects\Banquero\Banquero\obj\Debug\Banquero.pdb
 C:\Users\GerardoAugusto\Documents\Visual Studio 2015\Projects\Banquero\Banquero\obj\Debug\Banquero.DialogoSecuencias.resources
+C:\Users\GerardoAugusto\Desktop\Banquero\Deadlock_Banquero\Banquero\bin\Debug\Banquero.exe.config
+C:\Users\GerardoAugusto\Desktop\Banquero\Deadlock_Banquero\Banquero\obj\Debug\Banquero.exe
+C:\Users\GerardoAugusto\Desktop\Banquero\Deadlock_Banquero\Banquero\obj\Debug\Banquero.pdb
+C:\Users\GerardoAugusto\Desktop\Banquero\Deadlock_Banquero\Banquero\bin\Debug\Banquero.exe
+C:\Users\GerardoAugusto\Desktop\Banquero\Deadlock_Banquero\Banquero\bin\Debug\Banquero.pdb
+C:\Users\GerardoAugusto\Desktop\Banquero\Deadlock_Banquero\Banquero\obj\Debug\Banquero.csprojResolveAssemblyReference.cache
+C:\Users\GerardoAugusto\Desktop\Banquero\Deadlock_Banquero\Banquero\obj\Debug\Banquero.Form1.resources
+C:\Users\GerardoAugusto\Desktop\Banquero\Deadlock_Banquero\Banquero\obj\Debug\Banquero.DialogoSecuencias.resources
+C:\Users\GerardoAugusto\Desktop\Banquero\Deadlock_Banquero\Banquero\obj\Debug\Banquero.Properties.Resources.resources
+C:\Users\GerardoAugusto\Desktop\Banquero\Deadlock_Banquero\Banquero\obj\Debug\Banquero.csproj.GenerateResource.Cache

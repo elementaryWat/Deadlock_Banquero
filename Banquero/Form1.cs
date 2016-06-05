@@ -69,8 +69,8 @@ namespace Banquero
             necesidades = new int[cantidadProcesos, cantidadRecursos];
         }
         //Crea la estructura de matrices a partir de la cantidad de procesos y recursos
-        private void Instantanea_Click(object sender, EventArgs e)
-        { 
+        private void Cantidades_TextChanged(object sender, EventArgs e)
+        {
             limpiarmatrices();
             bool error = false;
             try
@@ -80,12 +80,16 @@ namespace Banquero
                 {
                     MessageBox.Show("Debe ingresar un valor mayor que 0 en la cantidad de procesos");
                     error = true;
+                    cantidadProcesos = 0;
+                    TCantidadP.Text = cantidadProcesos.ToString();
                 }
             }
             catch (FormatException)
             {
                 MessageBox.Show("Debe ingresar un numero en la cantidad de procesos");
                 error = true;
+                cantidadProcesos = 0;
+                TCantidadP.Text = cantidadProcesos.ToString();
             }
             try
             {
@@ -94,12 +98,16 @@ namespace Banquero
                 {
                     MessageBox.Show("Debe ingresar un valor mayor que 0 en la cantidad de recursos");
                     error = true;
+                    cantidadRecursos = 0;
+                    TCantidadR.Text = cantidadRecursos.ToString();
                 }
             }
             catch (FormatException)
             {
                 MessageBox.Show("Debe ingresar un numero en la cantidad de recursos");
                 error = true;
+                cantidadRecursos = 0;
+                TCantidadR.Text = cantidadRecursos.ToString();
             }
             if (!error)
             {
@@ -302,7 +310,6 @@ namespace Banquero
 
         private void Ejercicio1_Click(object sender, EventArgs e)
         {
-            limpiarmatrices();
             int[] filaasignados = new int[4];
             int[] filamaximos = new int[4];
             string[] filanecesidades = new string[4];
@@ -310,7 +317,6 @@ namespace Banquero
             cantidadProcesos = 5;
             TCantidadP.Text = "5";
             TCantidadR.Text = "4";
-            cargarmatrices();
             Disponibles.Rows[0].Cells[1].Value = "2";
             Disponibles.Rows[1].Cells[1].Value = "1";
             Disponibles.Rows[2].Cells[1].Value = "0";
@@ -318,7 +324,7 @@ namespace Banquero
             filaasignados[0] = 0;
             filaasignados[1] = 0;
             filaasignados[2] = 1;
-            filaasignados[3] = 1;
+            filaasignados[3] = 2;
             filamaximos[0] = 0;
             filamaximos[1] = 0;
             filamaximos[2] = 1;
@@ -327,7 +333,6 @@ namespace Banquero
             {
                 Asignados.Rows[0].Cells[x].Value = filaasignados[x].ToString();
                 Maximos.Rows[0].Cells[x].Value = filamaximos[x].ToString();
-                cargarnecesidades(0,x,filamaximos[x]-filaasignados[x]);
             }
             filaasignados[0] = 2;
             filaasignados[1] = 0;
@@ -341,7 +346,6 @@ namespace Banquero
             {
                 Asignados.Rows[1].Cells[x].Value = filaasignados[x].ToString();
                 Maximos.Rows[1].Cells[x].Value = filamaximos[x].ToString();
-                cargarnecesidades(1, x, filamaximos[x] - filaasignados[x]);
             }
             filaasignados[0] = 0;
             filaasignados[1] = 0;
@@ -355,12 +359,11 @@ namespace Banquero
             {
                 Asignados.Rows[2].Cells[x].Value = filaasignados[x].ToString();
                 Maximos.Rows[2].Cells[x].Value = filamaximos[x].ToString();
-                cargarnecesidades(2, x, filamaximos[x] - filaasignados[x]);
             }
             filaasignados[0] = 2;
             filaasignados[1] = 3;
             filaasignados[2] = 5;
-            filaasignados[3] = 6;
+            filaasignados[3] = 4;
             filamaximos[0] = 4;
             filamaximos[1] = 3;
             filamaximos[2] = 5;
@@ -369,12 +372,11 @@ namespace Banquero
             {
                 Asignados.Rows[3].Cells[x].Value = filaasignados[x].ToString();
                 Maximos.Rows[3].Cells[x].Value = filamaximos[x].ToString();
-                cargarnecesidades(3, x, filamaximos[x] - filaasignados[x]);
             }
             filaasignados[0] = 0;
             filaasignados[1] = 3;
             filaasignados[2] = 3;
-            filaasignados[3] = 1;
+            filaasignados[3] = 2;
             filamaximos[0] = 0;
             filamaximos[1] = 6;
             filamaximos[2] = 5;
@@ -383,13 +385,20 @@ namespace Banquero
             {
                 Asignados.Rows[4].Cells[x].Value = filaasignados[x].ToString();
                 Maximos.Rows[4].Cells[x].Value = filamaximos[x].ToString();
-                cargarnecesidades(4, x, filamaximos[x] - filaasignados[x]);
             }
         }
 
         private void Secuenciassegurass_Click(object sender, EventArgs e)
         {
             DialogoSec.Show();
+        }
+
+        private void ValMA_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex!=-1 && e.ColumnIndex!=-1)
+            {
+                cargarnecesidades(e.RowIndex, e.ColumnIndex, Int32.Parse(Maximos.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString()) - Int32.Parse(Asignados.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString()));
+            }    
         }
     }
 }
