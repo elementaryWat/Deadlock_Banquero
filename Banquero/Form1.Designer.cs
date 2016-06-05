@@ -48,11 +48,17 @@
             this.Ejercicio1 = new System.Windows.Forms.ToolStripMenuItem();
             this.Secuenciassegurass = new System.Windows.Forms.ToolStripMenuItem();
             this.TEstado = new System.Windows.Forms.Label();
+            this.Instantaneas = new System.Windows.Forms.DataGridView();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.Asignados)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Disponibles)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Necesidades)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Maximos)).BeginInit();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Instantaneas)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // TCantidadP
@@ -62,7 +68,8 @@
             this.TCantidadP.Name = "TCantidadP";
             this.TCantidadP.Size = new System.Drawing.Size(100, 20);
             this.TCantidadP.TabIndex = 0;
-            this.TCantidadP.TextChanged += new System.EventHandler(this.Cantidades_TextChanged);
+            this.TCantidadP.Text = "0";
+            this.TCantidadP.TextChanged += new System.EventHandler(this.CantidadP_TextChanged);
             // 
             // label1
             // 
@@ -91,7 +98,8 @@
             this.TCantidadR.Name = "TCantidadR";
             this.TCantidadR.Size = new System.Drawing.Size(100, 20);
             this.TCantidadR.TabIndex = 3;
-            this.TCantidadR.TextChanged += new System.EventHandler(this.Cantidades_TextChanged);
+            this.TCantidadR.Text = "0";
+            this.TCantidadR.TextChanged += new System.EventHandler(this.CantidadR_TextChanged);
             // 
             // Asignados
             // 
@@ -206,11 +214,11 @@
             // 
             this.Estadoseguro.BackColor = System.Drawing.Color.MidnightBlue;
             this.Estadoseguro.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.Estadoseguro.Location = new System.Drawing.Point(359, 325);
+            this.Estadoseguro.Location = new System.Drawing.Point(342, 325);
             this.Estadoseguro.Name = "Estadoseguro";
-            this.Estadoseguro.Size = new System.Drawing.Size(84, 34);
+            this.Estadoseguro.Size = new System.Drawing.Size(101, 34);
             this.Estadoseguro.TabIndex = 14;
-            this.Estadoseguro.Text = "Deteminar si estado seguro";
+            this.Estadoseguro.Text = "Estado del sistema";
             this.Estadoseguro.UseVisualStyleBackColor = false;
             this.Estadoseguro.Click += new System.EventHandler(this.Estadoseguro_Click);
             // 
@@ -222,7 +230,7 @@
             this.Secuenciassegurass});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(821, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(824, 24);
             this.menuStrip1.TabIndex = 15;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -258,18 +266,67 @@
             this.TEstado.AutoSize = true;
             this.TEstado.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.TEstado.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TEstado.Location = new System.Drawing.Point(345, 383);
+            this.TEstado.Location = new System.Drawing.Point(459, 334);
             this.TEstado.Name = "TEstado";
-            this.TEstado.Size = new System.Drawing.Size(69, 16);
+            this.TEstado.Size = new System.Drawing.Size(0, 16);
             this.TEstado.TabIndex = 19;
-            this.TEstado.Text = "Estado =";
+            // 
+            // Instantaneas
+            // 
+            this.Instantaneas.AllowUserToDeleteRows = false;
+            this.Instantaneas.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.Instantaneas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.Instantaneas.Location = new System.Drawing.Point(6, 463);
+            this.Instantaneas.Name = "Instantaneas";
+            this.Instantaneas.Size = new System.Drawing.Size(807, 186);
+            this.Instantaneas.TabIndex = 20;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.BackColor = System.Drawing.Color.MidnightBlue;
+            this.groupBox1.Controls.Add(this.label8);
+            this.groupBox1.Controls.Add(this.label7);
+            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox1.ForeColor = System.Drawing.SystemColors.ControlDark;
+            this.groupBox1.Location = new System.Drawing.Point(273, 395);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(334, 62);
+            this.groupBox1.TabIndex = 21;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Referencias";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.ForeColor = System.Drawing.Color.Maroon;
+            this.label8.Location = new System.Drawing.Point(186, 25);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(119, 16);
+            this.label8.TabIndex = 1;
+            this.label8.Text = "Vector Finalizados";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.BackColor = System.Drawing.Color.IndianRed;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.ForeColor = System.Drawing.Color.White;
+            this.label7.Location = new System.Drawing.Point(30, 25);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(98, 16);
+            this.label7.TabIndex = 0;
+            this.label7.Text = "Vector Trabajo";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Maroon;
-            this.ClientSize = new System.Drawing.Size(821, 457);
+            this.ClientSize = new System.Drawing.Size(824, 361);
+            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.Instantaneas);
             this.Controls.Add(this.TEstado);
             this.Controls.Add(this.Estadoseguro);
             this.Controls.Add(this.label6);
@@ -285,7 +342,11 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.TCantidadP);
             this.Controls.Add(this.menuStrip1);
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.MainMenuStrip = this.menuStrip1;
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(840, 700);
+            this.MinimumSize = new System.Drawing.Size(840, 400);
             this.Name = "Form1";
             this.Text = "Algoritmo del banquero";
             ((System.ComponentModel.ISupportInitialize)(this.Asignados)).EndInit();
@@ -294,6 +355,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.Maximos)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Instantaneas)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -321,6 +385,10 @@
         private System.Windows.Forms.ToolStripMenuItem Ejercicio1;
         private System.Windows.Forms.Label TEstado;
         private System.Windows.Forms.ToolStripMenuItem Secuenciassegurass;
+        private System.Windows.Forms.DataGridView Instantaneas;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label8;
     }
 }
 

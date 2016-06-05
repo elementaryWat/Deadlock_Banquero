@@ -12,14 +12,18 @@ namespace Banquero
 {
     public partial class DialogoSecuencias : Form
     {
-        public DialogoSecuencias()
+        Form1 Formprincipal;
+        public DialogoSecuencias(Form1 form)
         {
             InitializeComponent();
+            Formprincipal = form;
+
         }
 
         private void Secuenciasseguras_DoubleClick(object sender, EventArgs e)
         {
-            MessageBox.Show("El item seleccionado es " + Secuenciasseguras.SelectedItem.ToString());
+            Formprincipal.indice = Secuenciasseguras.SelectedIndex;
+            Formprincipal.Ejecutarsecuencia();
         }
     }
 }

@@ -50,9 +50,9 @@
             this.label1.ForeColor = System.Drawing.SystemColors.ControlDark;
             this.label1.Location = new System.Drawing.Point(13, 27);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(161, 13);
+            this.label1.Size = new System.Drawing.Size(167, 13);
             this.label1.TabIndex = 20;
-            this.label1.Text = "Seleccionar secuencia a mostrar";
+            this.label1.Text = "Doble clic en secuencia a mostrar";
             // 
             // DialogoSecuencias
             // 

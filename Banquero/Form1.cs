@@ -22,10 +22,12 @@ namespace Banquero
         int[,] necesidades;
         bool[] finalizados;
         DialogoSecuencias DialogoSec;
+        public List<string> secuenciassegu;
+        public int indice;
+        public int cantsec;
         public Form1()
         {
             InitializeComponent();
-
         }
         private void limpiarmatrices()
         {
@@ -36,6 +38,7 @@ namespace Banquero
             Necesidades.Rows.Clear();
             Necesidades.Columns.Clear();
             Disponibles.Rows.Clear();
+            Instantaneas.Columns.Clear();
         }
         private void cargarmatrices()
         {
@@ -43,6 +46,11 @@ namespace Banquero
             for (int x = 0; x < cantidadRecursos; x++)
             {
                 Asignados.Columns.Add("R" + (x + 1) + "A", "R" + (x + 1));
+                Instantaneas.Columns.Add("R" + (x + 1) + "A", "R" + (x + 1));
+                DataGridViewCellStyle estilo = new DataGridViewCellStyle();
+                estilo.BackColor = Color.IndianRed;
+                estilo.ForeColor = Color.White;
+                Instantaneas.Columns[x].DefaultCellStyle = estilo;
                 Maximos.Columns.Add("R" + (x + 1) + "A", "R" + (x + 1));
                 Necesidades.Columns.Add("R" + (x + 1) + "A", "R" + (x + 1));
                 Disponibles.Rows.Add("R" + (x + 1), "0");
@@ -50,6 +58,11 @@ namespace Banquero
             }
             for (int x = 0; x < cantidadProcesos; x++)
             {
+                Instantaneas.Columns.Add("P" + (x + 1) + "T", "P" + (x + 1));
+                DataGridViewCellStyle estilo = new DataGridViewCellStyle();
+                estilo.BackColor = Color.CornflowerBlue;
+                estilo.ForeColor = Color.Maroon;
+                Instantaneas.Columns[cantidadRecursos+x].DefaultCellStyle = estilo;
                 Asignados.Rows.Add(fila);
                 Asignados.Rows[x].HeaderCell.Value = "P" + (x + 1);
                 Maximos.Rows.Add(fila);
@@ -60,6 +73,8 @@ namespace Banquero
         }
         private void Inicializar()
         {
+            secuenciassegu = new List<string>();
+            indice = 0;
             disponibles = new int[cantidadRecursos];
             finalizados = new bool[cantidadProcesos];
             trabajo = new int[cantidadRecursos];
@@ -69,7 +84,7 @@ namespace Banquero
             necesidades = new int[cantidadProcesos, cantidadRecursos];
         }
         //Crea la estructura de matrices a partir de la cantidad de procesos y recursos
-        private void Cantidades_TextChanged(object sender, EventArgs e)
+        private void CantidadP_TextChanged(object sender, EventArgs e)
         {
             limpiarmatrices();
             bool error = false;
@@ -80,6 +95,7 @@ namespace Banquero
                 {
                     MessageBox.Show("Debe ingresar un valor mayor que 0 en la cantidad de procesos");
                     error = true;
+                    dismtamventana();
                     cantidadProcesos = 0;
                     TCantidadP.Text = cantidadProcesos.ToString();
                 }
@@ -88,9 +104,19 @@ namespace Banquero
             {
                 MessageBox.Show("Debe ingresar un numero en la cantidad de procesos");
                 error = true;
+                dismtamventana();
                 cantidadProcesos = 0;
                 TCantidadP.Text = cantidadProcesos.ToString();
             }
+            if (!error)
+            {
+                cargarmatrices();
+            }
+        }
+        private void CantidadR_TextChanged(object sender, EventArgs e)
+        {
+            limpiarmatrices();
+            bool error = false;
             try
             {
                 cantidadRecursos = Int32.Parse(TCantidadR.Text);
@@ -98,6 +124,7 @@ namespace Banquero
                 {
                     MessageBox.Show("Debe ingresar un valor mayor que 0 en la cantidad de recursos");
                     error = true;
+                    dismtamventana();
                     cantidadRecursos = 0;
                     TCantidadR.Text = cantidadRecursos.ToString();
                 }
@@ -106,6 +133,7 @@ namespace Banquero
             {
                 MessageBox.Show("Debe ingresar un numero en la cantidad de recursos");
                 error = true;
+                dismtamventana();
                 cantidadRecursos = 0;
                 TCantidadR.Text = cantidadRecursos.ToString();
             }
@@ -130,7 +158,11 @@ namespace Banquero
                         maximos[y, x] = Int32.Parse(Maximos.Rows[y].Cells[x].Value.ToString());
                         asignados[y, x] = Int32.Parse(Asignados.Rows[y].Cells[x].Value.ToString());
                         necesidades[y, x] = maximos[y, x] - asignados[y, x];
-                        cargarnecesidades(y,x, necesidades[y, x]);
+                        if (necesidades[y, x]<0)
+                        {
+                            MessageBox.Show("Se han detectado valores menores que 0 en la matriz de Necesidades");
+                            return false;
+                        }
                     }
                 }
             }
@@ -196,7 +228,8 @@ namespace Banquero
                 {
                     cadenaseg += cadenasegura[x];
                 }
-                DialogoSec.Secuenciasseguras.Items.Add(cadenaseg);
+                cantsec++;
+                secuenciassegu.Add(cadenaseg);
                 return true;
             }
             else
@@ -243,7 +276,6 @@ namespace Banquero
         }
         private void banquero()
         {
-            DialogoSec = new DialogoSecuencias();
             //Primero genera todas las posibles secuencias de estados seguros
             trabajo = disponibles;
             for (int x=0;x<cantidadProcesos;x++)
@@ -278,38 +310,117 @@ namespace Banquero
                 }
                 if (respuesta)
                 {
-                    TEstado.Text = "Estado = Seguro";
+                    TEstado.Text = " = Seguro";
+                    aumtamventana();
+                    Ejecutarsecuencia();
                     TEstado.ForeColor = Color.Black;
-                    TEstado.BackColor = Color.Lime;
-                    //Selecciona por defecto el primero
-                    Secuenciassegurass.Visible = true; DialogoSec.Secuenciasseguras.SelectedIndex = 0;
+                    TEstado.BackColor = Color.PaleGreen;
+                    Secuenciassegurass.Text="Secuencias de estados seguras ("+cantsec+")";
+                    Secuenciassegurass.Visible = true;
+                    indice = 0;
                 } else
                 {
-                    TEstado.Text = "Estado = Inseguro";
+                    TEstado.Text = " = Inseguro";
                     TEstado.ForeColor = Color.White;
                     TEstado.BackColor = Color.Red;
-                    Secuenciassegurass.Visible = false;
+                    dismtamventana();
                 }
             }
             else
             {
-                TEstado.Text = "Estado = Inseguro";
+                TEstado.Text = " = Inseguro";
                 TEstado.ForeColor = Color.White;
                 TEstado.BackColor = Color.Red;
-                Secuenciassegurass.Visible = false;
+                dismtamventana();
             }
+        }
+        private void aumtamventana()
+        {
+            TEstado.Visible = true;
+            this.Size = new Size(840, 700);
+            this.MinimumSize = new Size(840, 700);
+            this.MaximumSize = new Size(840, 700);
+        }
+        private void dismtamventana()
+        {
+            Secuenciassegurass.Visible = false;
+            TEstado.Visible = false;
+            this.Size = new Size(840, 400);
+            this.MinimumSize = new Size(840, 400);
+            this.MaximumSize = new Size(840, 400);
         }
         private void Estadoseguro_Click(object sender, EventArgs e)
         {
             Inicializar();
-            if (comprobacion())
+            if (comprobacion() && cantidadProcesos>0 && cantidadRecursos>0)
             {
+                cantsec = 0;
                 banquero();
             }
+            else
+            {
+                if (cantidadProcesos == 0)
+                {
+                    MessageBox.Show("Debe ingresar un valor mayor que 0 en la cantidad de Procesos");
+                }
+                if (cantidadRecursos == 0)
+                {
+                    MessageBox.Show("Debe ingresar un valor mayor que 0 en la cantidad de Recursos");
+                }
+            }
         }
-
+        public void Ejecutarsecuencia()
+        {
+            Instantaneas.Rows.Clear();
+            for (int x = 0; x < cantidadRecursos; x++)
+            {
+                disponibles[x] = Int32.Parse(Disponibles.Rows[x].Cells[1].Value.ToString());
+            }
+            trabajo = disponibles;
+            for(int x=0;x<cantidadProcesos;x++)
+            {
+                finalizados[x] = false;
+            }
+            //Imprime las instantaneas del sistema segun la secuencia seleccionada
+            int procesac;
+            string[] instantanea = new string[cantidadRecursos+cantidadProcesos];
+            for (int x=0;x<cantidadRecursos;x++)
+            {
+                instantanea[x] = trabajo[x].ToString();
+            }
+            for (int x = cantidadRecursos; x < (cantidadRecursos+cantidadProcesos); x++)
+            {
+                instantanea[x] = "F";
+            }
+            Instantaneas.Rows.Add(instantanea);
+            for (int x=0;x<cantidadProcesos;x++)
+            {
+                procesac = Int32.Parse(secuenciassegu[indice][x].ToString()) - 1;
+                trabajo = sumarasigatrab(trabajo,procesac);
+                for (int y = 0; y < cantidadRecursos; y++)
+                {
+                    instantanea[y] = trabajo[y].ToString();
+                }
+                finalizados[procesac] = true;
+                for (int y = 0; y < cantidadProcesos; y++)
+                {
+                    string textt;
+                    if (finalizados[y])
+                    {
+                        textt = "V";
+                    }
+                    else
+                    {
+                        textt = "F";
+                    }
+                    instantanea[y+cantidadRecursos] = textt;
+                }
+                Instantaneas.Rows.Add(instantanea);
+            }
+        }
         private void Ejercicio1_Click(object sender, EventArgs e)
         {
+            dismtamventana();
             int[] filaasignados = new int[4];
             int[] filamaximos = new int[4];
             string[] filanecesidades = new string[4];
@@ -390,11 +501,18 @@ namespace Banquero
 
         private void Secuenciassegurass_Click(object sender, EventArgs e)
         {
+            DialogoSec = new DialogoSecuencias(this);
+            for (int x=0;x<secuenciassegu.Count();x++)
+            {
+                DialogoSec.Secuenciasseguras.Items.Add(secuenciassegu[x]);
+            }
+            DialogoSec.Secuenciasseguras.SelectedIndex = indice;
             DialogoSec.Show();
         }
 
         private void ValMA_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
+            dismtamventana();
             if (e.RowIndex!=-1 && e.ColumnIndex!=-1)
             {
                 cargarnecesidades(e.RowIndex, e.ColumnIndex, Int32.Parse(Maximos.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString()) - Int32.Parse(Asignados.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString()));
