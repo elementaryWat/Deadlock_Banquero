@@ -31,6 +31,8 @@ namespace Banquero
         public Form1()
         {
             InitializeComponent();
+            TCantidadR.Text = "1";
+            TCantidadP.Text = "1";           
         }
         private void limpiarmatrices()
         {
@@ -94,12 +96,12 @@ namespace Banquero
             try
             {
                 cantidadProcesos = Int32.Parse(TCantidadP.Text);
-                if (cantidadProcesos <= 0)
+                if (cantidadProcesos < 1)
                 {
-                    MessageBox.Show("Debe ingresar un valor mayor que 0 en la cantidad de procesos");
+                    MessageBox.Show("Debe existir al menos un proceso");
                     error = true;
                     dismtamventana();
-                    cantidadProcesos = 0;
+                    cantidadProcesos = 1;
                     TCantidadP.Text = cantidadProcesos.ToString();
                 }
             }
@@ -108,7 +110,7 @@ namespace Banquero
                 MessageBox.Show("Debe ingresar un numero en la cantidad de procesos");
                 error = true;
                 dismtamventana();
-                cantidadProcesos = 0;
+                cantidadProcesos = 1;
                 TCantidadP.Text = cantidadProcesos.ToString();
             }
             if (!error)
@@ -123,12 +125,12 @@ namespace Banquero
             try
             {
                 cantidadRecursos = Int32.Parse(TCantidadR.Text);
-                if (cantidadRecursos <= 0)
+                if (cantidadRecursos < 1)
                 {
-                    MessageBox.Show("Debe ingresar un valor mayor que 0 en la cantidad de recursos");
+                    MessageBox.Show("Debe existir al menos un recurso!");
                     error = true;
                     dismtamventana();
-                    cantidadRecursos = 0;
+                    cantidadRecursos = 1;
                     TCantidadR.Text = cantidadRecursos.ToString();
                 }
             }
@@ -137,7 +139,7 @@ namespace Banquero
                 MessageBox.Show("Debe ingresar un numero en la cantidad de recursos");
                 error = true;
                 dismtamventana();
-                cantidadRecursos = 0;
+                cantidadRecursos = 1;
                 TCantidadR.Text = cantidadRecursos.ToString();
             }
             if (!error)
