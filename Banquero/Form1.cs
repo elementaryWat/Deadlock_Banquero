@@ -21,7 +21,7 @@ namespace Banquero
         int[,] maximos;
         int[] solicitudrec;
         int procesosol;
-        int[,] necesidades;
+        int[,] necesidades; 
         bool[] finalizados;
         DialogoSecuencias DialogoSec;
         Solicitud DialogoSol;
@@ -349,7 +349,6 @@ namespace Banquero
         }
         private void dismtamventana()
         {
-            RetMat.Visible = false;
             IngSolicitud.Visible = false;
             Secuenciassegurass.Visible = false;
             TEstado.Visible = false;
