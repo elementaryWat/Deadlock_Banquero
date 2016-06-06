@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.TCantidadP = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -47,6 +48,8 @@
             this.datosDeInicioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Ejercicio1 = new System.Windows.Forms.ToolStripMenuItem();
             this.Secuenciassegurass = new System.Windows.Forms.ToolStripMenuItem();
+            this.IngSolicitud = new System.Windows.Forms.ToolStripMenuItem();
+            this.RetMat = new System.Windows.Forms.ToolStripMenuItem();
             this.TEstado = new System.Windows.Forms.Label();
             this.Instantaneas = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -108,7 +111,7 @@
             this.Asignados.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.Asignados.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.Asignados.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.Asignados.Location = new System.Drawing.Point(407, 144);
+            this.Asignados.Location = new System.Drawing.Point(406, 118);
             this.Asignados.Name = "Asignados";
             this.Asignados.RowHeadersWidth = 50;
             this.Asignados.Size = new System.Drawing.Size(200, 175);
@@ -119,7 +122,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.label3.Location = new System.Drawing.Point(404, 120);
+            this.label3.Location = new System.Drawing.Point(403, 94);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(103, 13);
             this.label3.TabIndex = 7;
@@ -135,10 +138,11 @@
             this.Disponibles.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Id_recurso,
             this.CantidadR});
-            this.Disponibles.Location = new System.Drawing.Point(12, 144);
+            this.Disponibles.Location = new System.Drawing.Point(11, 118);
             this.Disponibles.Name = "Disponibles";
             this.Disponibles.Size = new System.Drawing.Size(183, 175);
             this.Disponibles.TabIndex = 9;
+            this.Disponibles.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.Disponibles_CellValueChanged);
             // 
             // Id_recurso
             // 
@@ -156,7 +160,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.label4.Location = new System.Drawing.Point(12, 120);
+            this.label4.Location = new System.Drawing.Point(11, 94);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(61, 13);
             this.label4.TabIndex = 10;
@@ -166,7 +170,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.label5.Location = new System.Drawing.Point(198, 120);
+            this.label5.Location = new System.Drawing.Point(197, 94);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(48, 13);
             this.label5.TabIndex = 11;
@@ -179,7 +183,7 @@
             this.Necesidades.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.Necesidades.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.Necesidades.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.Necesidades.Location = new System.Drawing.Point(613, 143);
+            this.Necesidades.Location = new System.Drawing.Point(612, 118);
             this.Necesidades.Name = "Necesidades";
             this.Necesidades.ReadOnly = true;
             this.Necesidades.RowHeadersWidth = 50;
@@ -193,7 +197,7 @@
             this.Maximos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.Maximos.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.Maximos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.Maximos.Location = new System.Drawing.Point(201, 144);
+            this.Maximos.Location = new System.Drawing.Point(200, 118);
             this.Maximos.Name = "Maximos";
             this.Maximos.RowHeadersWidth = 50;
             this.Maximos.Size = new System.Drawing.Size(200, 175);
@@ -204,7 +208,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.label6.Location = new System.Drawing.Point(610, 120);
+            this.label6.Location = new System.Drawing.Point(609, 94);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(69, 13);
             this.label6.TabIndex = 13;
@@ -214,7 +218,7 @@
             // 
             this.Estadoseguro.BackColor = System.Drawing.Color.MidnightBlue;
             this.Estadoseguro.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.Estadoseguro.Location = new System.Drawing.Point(342, 325);
+            this.Estadoseguro.Location = new System.Drawing.Point(348, 317);
             this.Estadoseguro.Name = "Estadoseguro";
             this.Estadoseguro.Size = new System.Drawing.Size(101, 34);
             this.Estadoseguro.TabIndex = 14;
@@ -227,7 +231,9 @@
             this.menuStrip1.BackColor = System.Drawing.Color.MidnightBlue;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.datosDeInicioToolStripMenuItem,
-            this.Secuenciassegurass});
+            this.Secuenciassegurass,
+            this.IngSolicitud,
+            this.RetMat});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(824, 24);
@@ -248,7 +254,7 @@
             this.Ejercicio1.BackColor = System.Drawing.Color.MidnightBlue;
             this.Ejercicio1.ForeColor = System.Drawing.SystemColors.ControlDark;
             this.Ejercicio1.Name = "Ejercicio1";
-            this.Ejercicio1.Size = new System.Drawing.Size(127, 22);
+            this.Ejercicio1.Size = new System.Drawing.Size(152, 22);
             this.Ejercicio1.Text = "Ejercicio 1";
             this.Ejercicio1.Click += new System.EventHandler(this.Ejercicio1_Click);
             // 
@@ -261,12 +267,30 @@
             this.Secuenciassegurass.Visible = false;
             this.Secuenciassegurass.Click += new System.EventHandler(this.Secuenciassegurass_Click);
             // 
+            // IngSolicitud
+            // 
+            this.IngSolicitud.ForeColor = System.Drawing.SystemColors.ControlDark;
+            this.IngSolicitud.Name = "IngSolicitud";
+            this.IngSolicitud.Size = new System.Drawing.Size(109, 20);
+            this.IngSolicitud.Text = "Ingresar solicitud";
+            this.IngSolicitud.Visible = false;
+            this.IngSolicitud.Click += new System.EventHandler(this.IngSolicitud_Click);
+            // 
+            // RetMat
+            // 
+            this.RetMat.ForeColor = System.Drawing.SystemColors.ControlDark;
+            this.RetMat.Name = "RetMat";
+            this.RetMat.Size = new System.Drawing.Size(207, 20);
+            this.RetMat.Text = "Retornar matrices a datos originales";
+            this.RetMat.Visible = false;
+            this.RetMat.Click += new System.EventHandler(this.RetMat_Click);
+            // 
             // TEstado
             // 
             this.TEstado.AutoSize = true;
             this.TEstado.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.TEstado.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TEstado.Location = new System.Drawing.Point(459, 334);
+            this.TEstado.Location = new System.Drawing.Point(466, 326);
             this.TEstado.Name = "TEstado";
             this.TEstado.Size = new System.Drawing.Size(0, 16);
             this.TEstado.TabIndex = 19;
@@ -288,7 +312,7 @@
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.groupBox1.Location = new System.Drawing.Point(273, 395);
+            this.groupBox1.Location = new System.Drawing.Point(227, 395);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(334, 62);
             this.groupBox1.TabIndex = 21;
@@ -325,24 +349,25 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Maroon;
             this.ClientSize = new System.Drawing.Size(824, 361);
-            this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.Instantaneas);
-            this.Controls.Add(this.TEstado);
-            this.Controls.Add(this.Estadoseguro);
-            this.Controls.Add(this.label6);
             this.Controls.Add(this.Necesidades);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.Disponibles);
-            this.Controls.Add(this.Maximos);
-            this.Controls.Add(this.label3);
             this.Controls.Add(this.Asignados);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.Maximos);
+            this.Controls.Add(this.Instantaneas);
+            this.Controls.Add(this.Disponibles);
+            this.Controls.Add(this.TEstado);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.Estadoseguro);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.TCantidadR);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.TCantidadP);
             this.Controls.Add(this.menuStrip1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(840, 700);
@@ -389,6 +414,8 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.ToolStripMenuItem IngSolicitud;
+        private System.Windows.Forms.ToolStripMenuItem RetMat;
     }
 }
 

@@ -14,14 +14,17 @@ namespace Banquero
     {
         int cantidadProcesos;
         int cantidadRecursos;
-        int[] disponibles;
         int[] trabajo;
         int[] existencias;
+        int[] disponibles;
         int[,] asignados;
         int[,] maximos;
+        int[] solicitudrec;
+        int procesosol;
         int[,] necesidades;
         bool[] finalizados;
         DialogoSecuencias DialogoSec;
+        Solicitud DialogoSol;
         public List<string> secuenciassegu;
         public int indice;
         public int cantsec;
@@ -60,7 +63,7 @@ namespace Banquero
             {
                 Instantaneas.Columns.Add("P" + (x + 1) + "T", "P" + (x + 1));
                 DataGridViewCellStyle estilo = new DataGridViewCellStyle();
-                estilo.BackColor = Color.CornflowerBlue;
+                estilo.BackColor = Color.LightSteelBlue;
                 estilo.ForeColor = Color.Maroon;
                 Instantaneas.Columns[cantidadRecursos+x].DefaultCellStyle = estilo;
                 Asignados.Rows.Add(fila);
@@ -75,10 +78,10 @@ namespace Banquero
         {
             secuenciassegu = new List<string>();
             indice = 0;
-            disponibles = new int[cantidadRecursos];
             finalizados = new bool[cantidadProcesos];
             trabajo = new int[cantidadRecursos];
             existencias = new int[cantidadRecursos];
+            disponibles = new int[cantidadRecursos];
             asignados = new int[cantidadProcesos, cantidadRecursos];
             maximos = new int[cantidadProcesos, cantidadRecursos];
             necesidades = new int[cantidadProcesos, cantidadRecursos];
@@ -311,19 +314,19 @@ namespace Banquero
                 if (respuesta)
                 {
                     TEstado.Text = " = Seguro";
-                    aumtamventana();
-                    Ejecutarsecuencia();
                     TEstado.ForeColor = Color.Black;
                     TEstado.BackColor = Color.PaleGreen;
                     Secuenciassegurass.Text="Secuencias de estados seguras ("+cantsec+")";
-                    Secuenciassegurass.Visible = true;
                     indice = 0;
+                    aumtamventana();
+                    Ejecutarsecuencia();
                 } else
                 {
                     TEstado.Text = " = Inseguro";
                     TEstado.ForeColor = Color.White;
                     TEstado.BackColor = Color.Red;
                     dismtamventana();
+                    TEstado.Visible = true;
                 }
             }
             else
@@ -332,10 +335,13 @@ namespace Banquero
                 TEstado.ForeColor = Color.White;
                 TEstado.BackColor = Color.Red;
                 dismtamventana();
+                TEstado.Visible = true;
             }
         }
         private void aumtamventana()
         {
+            IngSolicitud.Visible = true;
+            Secuenciassegurass.Visible = true;
             TEstado.Visible = true;
             this.Size = new Size(840, 700);
             this.MinimumSize = new Size(840, 700);
@@ -343,6 +349,8 @@ namespace Banquero
         }
         private void dismtamventana()
         {
+            RetMat.Visible = false;
+            IngSolicitud.Visible = false;
             Secuenciassegurass.Visible = false;
             TEstado.Visible = false;
             this.Size = new Size(840, 400);
@@ -393,6 +401,14 @@ namespace Banquero
                 instantanea[x] = "F";
             }
             Instantaneas.Rows.Add(instantanea);
+            bool[,] estiloa = new bool[cantidadProcesos,cantidadProcesos];
+            for (int x=0;x<cantidadProcesos;x++)
+            {
+                for (int y=0;y<cantidadProcesos;y++)
+                {
+                    estiloa[x, y] = false;
+                }
+            }
             for (int x=0;x<cantidadProcesos;x++)
             {
                 procesac = Int32.Parse(secuenciassegu[indice][x].ToString()) - 1;
@@ -402,20 +418,41 @@ namespace Banquero
                     instantanea[y] = trabajo[y].ToString();
                 }
                 finalizados[procesac] = true;
+                int fa = x + 1;
                 for (int y = 0; y < cantidadProcesos; y++)
                 {
                     string textt;
                     if (finalizados[y])
                     {
                         textt = "V";
+                        estiloa[x, y] = true;
                     }
                     else
                     {
                         textt = "F";
+                        estiloa[x, y] = false;
                     }
                     instantanea[y+cantidadRecursos] = textt;
                 }
                 Instantaneas.Rows.Add(instantanea);
+            }
+            for (int x=0;x<cantidadProcesos;x++)
+            {
+                for (int y = 0; y < cantidadProcesos; y++)
+                {
+                    if (estiloa[x,y])
+                    {
+                        DataGridViewCellStyle estilo = new DataGridViewCellStyle();
+                        estilo.BackColor = Color.CornflowerBlue;
+                        Instantaneas.Rows[x+1].Cells[cantidadRecursos + y].Style = estilo;
+                    }
+                    else
+                    {
+                        DataGridViewCellStyle estilo = new DataGridViewCellStyle();
+                        estilo.BackColor = Color.LightSteelBlue;
+                        Instantaneas.Rows[x+1].Cells[cantidadRecursos + y].Style = estilo;
+                    }
+                }
             }
         }
         private void Ejercicio1_Click(object sender, EventArgs e)
@@ -517,6 +554,77 @@ namespace Banquero
             {
                 cargarnecesidades(e.RowIndex, e.ColumnIndex, Int32.Parse(Maximos.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString()) - Int32.Parse(Asignados.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString()));
             }    
+        }
+        public void Solicitarrecursos(int proceso,int[] solicitud)
+        {
+            for (int x = 0; x < cantidadRecursos; x++)
+            {
+                disponibles[x] = Int32.Parse(Disponibles.Rows[x].Cells[1].Value.ToString());
+            }
+            solicitudrec = solicitud;
+            procesosol = proceso;
+            bool solmenignec = true;
+            for (int x=0;x<cantidadRecursos;x++)
+            {
+                if (solicitud[x]>necesidades[proceso,x])
+                {
+                    solmenignec = false;
+                }
+            }
+            if (solmenignec)
+            {
+                bool solmenigdisp = true;
+                for (int x = 0; x < cantidadRecursos; x++)
+                {
+                    if (solicitud[x] > disponibles[x])
+                    {
+                        solmenigdisp = false;
+                    }
+                }
+                if (solmenigdisp)
+                {
+                    for (int x=0;x<cantidadRecursos;x++)
+                    {
+                        asignados[proceso, x] += solicitud[x];
+                        disponibles[x] -= solicitud[x];
+                        Asignados.Rows[proceso].Cells[x].Value = asignados[proceso, x];
+                        Disponibles.Rows[x].Cells[1].Value = disponibles[x];
+                    }
+                    RetMat.Visible = true;
+                }
+                else
+                {
+                    MessageBox.Show("Solicitud con cantidades que exceden recursos disponibles.Debera esperar");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Solicitud con cantidades que exceden necesidades.Error!");
+            }
+        }
+        private void IngSolicitud_Click(object sender, EventArgs e)
+        {
+            DialogoSol = new Solicitud(cantidadProcesos,cantidadRecursos,this);
+            DialogoSol.Show();
+        }
+
+        private void RetMat_Click(object sender, EventArgs e)
+        {  
+            for (int x = 0; x < cantidadRecursos; x++)
+            {
+                disponibles[x] = Int32.Parse(Disponibles.Rows[x].Cells[1].Value.ToString());
+                disponibles[x] += solicitudrec[x];
+                Disponibles.Rows[x].Cells[1].Value = disponibles[x];
+                asignados[procesosol, x] = Int32.Parse(Asignados.Rows[procesosol].Cells[x].Value.ToString());
+                asignados[procesosol, x] -= solicitudrec[x];
+                Asignados.Rows[procesosol].Cells[x].Value = asignados[procesosol, x];
+            }
+            RetMat.Visible = false;
+        }
+
+        private void Disponibles_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            dismtamventana();
         }
     }
 }

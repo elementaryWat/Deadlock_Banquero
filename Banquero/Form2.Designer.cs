@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DialogoSecuencias));
             this.Secuenciasseguras = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
@@ -59,9 +60,13 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Maroon;
-            this.ClientSize = new System.Drawing.Size(187, 242);
+            this.ClientSize = new System.Drawing.Size(184, 241);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.Secuenciasseguras);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(200, 280);
+            this.MinimumSize = new System.Drawing.Size(200, 280);
             this.Name = "DialogoSecuencias";
             this.Text = "Secuencias seguras";
             this.ResumeLayout(false);

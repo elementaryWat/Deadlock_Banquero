@@ -18,3 +18,4 @@ C:\Users\GerardoAugusto\Desktop\Banquero\Deadlock_Banquero\Banquero\obj\Debug\Ba
 C:\Users\GerardoAugusto\Desktop\Banquero\Deadlock_Banquero\Banquero\obj\Debug\Banquero.DialogoSecuencias.resources
 C:\Users\GerardoAugusto\Desktop\Banquero\Deadlock_Banquero\Banquero\obj\Debug\Banquero.Properties.Resources.resources
 C:\Users\GerardoAugusto\Desktop\Banquero\Deadlock_Banquero\Banquero\obj\Debug\Banquero.csproj.GenerateResource.Cache
+C:\Users\GerardoAugusto\Desktop\Banquero\Deadlock_Banquero\Banquero\obj\Debug\Banquero.Solicitud.resources
