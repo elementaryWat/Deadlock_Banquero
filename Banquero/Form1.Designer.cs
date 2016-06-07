@@ -254,7 +254,7 @@
             this.Ejercicio1.BackColor = System.Drawing.Color.MidnightBlue;
             this.Ejercicio1.ForeColor = System.Drawing.SystemColors.ControlDark;
             this.Ejercicio1.Name = "Ejercicio1";
-            this.Ejercicio1.Size = new System.Drawing.Size(152, 22);
+            this.Ejercicio1.Size = new System.Drawing.Size(127, 22);
             this.Ejercicio1.Text = "Ejercicio 1";
             this.Ejercicio1.Click += new System.EventHandler(this.Ejercicio1_Click);
             // 

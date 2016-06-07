@@ -551,6 +551,7 @@ namespace Banquero
         private void ValMA_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             dismtamventana();
+            RetMat.Visible = false;
             if (e.RowIndex!=-1 && e.ColumnIndex!=-1)
             {
                 cargarnecesidades(e.RowIndex, e.ColumnIndex, Int32.Parse(Maximos.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString()) - Int32.Parse(Asignados.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString()));
@@ -626,6 +627,7 @@ namespace Banquero
         private void Disponibles_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             dismtamventana();
+            RetMat.Visible = false;
         }
     }
 }
